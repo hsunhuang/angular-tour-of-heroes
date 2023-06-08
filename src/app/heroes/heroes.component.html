@@ -1,0 +1,41 @@
+<!-- uppercase名字顯示成了大寫字母 -->
+<h2>My Heroes</h2>
+
+<!-- 新增英雄 -->
+<div>
+  <label for="new-hero">Hero name: </label>
+  <input id="new-hero" #heroName />
+
+  <!-- 新增 -->
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
+    Add hero</button>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+    <button type="button" class="delete" title="delete hero"
+      (click)="delete(hero)">x</button>
+  </li>
+</ul>
+
+
+<!-- [hero]="selectedHero" 是 Angular 的屬性繫結語法
+使用者點選了一個英雄的名字，該英雄的詳情就顯示在了英雄列表下方。現在，HeroDetailComponent 負責顯示那些詳情-->
+  <!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
+
+<!-- 英雄詳情修改區 -->
+<div *ngIf="selectedHero">
+  <h2>{{selectedHero.name | uppercase}} Details</h2>
+  <div>id: {{selectedHero.id}}</div>
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
+  </div>
+</div>
+
+
+
